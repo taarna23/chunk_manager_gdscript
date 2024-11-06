@@ -19,7 +19,7 @@ The original readme follows, with some alterations.
 ## Installation
 
 1. Clone the repository or download the source code.
-2. Place the `ChunkManager.cs` file in your Godot project under the appropriate directory (e.g., `Scripts/`).
+2. Place the `ChunkManager.gd` file in your Godot project under the appropriate directory (e.g., `Scripts/`).
 
 ## Usage
 
@@ -29,19 +29,16 @@ To use the `ChunkManager`, follow these steps:
 2. Add a `Node2D` as the root node.
 3. Attach the `ChunkManager` script to the root node.
 4. Assign a `TileSet` to the `_tileSet` property in the Godot editor.
-5. Call `RefreshChunks()` method to load chunks around the player's position.
+5. (Optional) Adjust Chunk Size and/or Chunk Buffer to your liking. \
+6. Call `refresh_chunks()` method to load chunks around the player's position.
 
 ### Example
 
-```csharp
-public class Player : Node2D
-{
-    public override void _Process(float delta)
-    {
-        // Update player position
-        Vector2 position = this.Position;
+```gdscript
+extends CharacterBody2D
+    func _process(delta: float) -> void:
+        #get a reference to the root node
+        var map_ref = self.owner
 
-        // Refresh chunks based on player position
-        ChunkManager.Instance.RefreshChunks(position);
-    }
-}
+        #update the chunks
+        map_ref.refresh_chunks(position)
